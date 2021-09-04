@@ -25,8 +25,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //获取用户名和密码
-        String userCode = req.getParameter("userCode");
-        String userPassword = req.getParameter("userPassword");
+        String userCode = req.getParameter("username");
+        String userPassword = req.getParameter("password");
 
         ///和数据库的密码进行对比，调用业务层
         AdminService adminService = new AdminServiceImpl();
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         TeacherService teacherService = new TeacherServiceImpl();
         teacher teacher;
 
-        Integer kind = Integer.valueOf(req.getParameter("kind"));
+        Integer kind = Integer.valueOf(req.getParameter("level"));
         System.out.println(kind);
         if(kind==0) {
             try {
