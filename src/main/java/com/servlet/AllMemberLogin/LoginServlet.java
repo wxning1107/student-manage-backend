@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+// 引入json转换库
+import com.alibaba.fastjson.JSON;
+
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,12 +44,13 @@ public class LoginServlet extends HttpServlet {
                 if(admin!=null&&userPassword.equals(admin.getPassword())){//查有此人，可以登录
                     //将用户的信息放到session中
                     req.getSession().setAttribute(Constants.USER_SESSION,admin);
-                    //跳转到内部主页
-                    resp.sendRedirect("home.jsp");//这里是验证成功，跳转到管理员的jsp
+                    // 返回响应
+                    String adminStr = JSON.toJSONString(admin);
+                    resp.getWriter().write(adminStr);
                 }else {
                     //转发回登录页面，顺带提示它错误
                     req.setAttribute("error","用户名或者密码不正确");
-                    req.getRequestDispatcher("/login.jsp").forward(req,resp);//密码账号不对，跳转回登陆页面
+                    resp.sendError(400, "用户名或者密码不正确");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -58,12 +62,13 @@ public class LoginServlet extends HttpServlet {
                 if(student!=null&&userPassword.equals(student.getPassword())){//查有此人，可以登录
                     //将用户的信息放到session中
                     req.getSession().setAttribute(Constants.USER_SESSION,student);
-                    //跳转到内部主页
-                    resp.sendRedirect("home.jsp");//这里是验证成功，跳转到学生jsp
+                    // 返回响应
+                    String studentStr = JSON.toJSONString(student);
+                    resp.getWriter().write(studentStr);
                 }else {
                     //转发回登录页面，顺带提示它错误
                     req.setAttribute("error","用户名或者密码不正确");
-                    req.getRequestDispatcher("/LoginServlet.jsp").forward(req,resp);//密码账号不对，跳转回登陆页面
+                    resp.sendError(400, "用户名或者密码不正确");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -74,12 +79,13 @@ public class LoginServlet extends HttpServlet {
                 if(teacher!=null&&userPassword.equals(teacher.getPassword())){//查有此人，可以登录
                     //将用户的信息放到session中
                     req.getSession().setAttribute(Constants.USER_SESSION,teacher);
-                    //跳转到内部主页
-                    resp.sendRedirect("home.jsp");//这里是验证成功，跳转到老师的jsp
+                    // 返回响应
+                    String teacherStr = JSON.toJSONString(teacher);
+                    resp.getWriter().write(teacherStr);
                 }else {
                     //转发回登录页面，顺带提示它错误
                     req.setAttribute("error","用户名或者密码不正确");
-                    req.getRequestDispatcher("/LoginServlet.jsp").forward(req,resp);//密码账号不对，跳转回登陆页面
+                    resp.sendError(400, "用户名或者密码不正确");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
