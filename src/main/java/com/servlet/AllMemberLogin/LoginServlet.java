@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        else if(kind==1){
+        else if(kind==2){
             try {
                 student = studentService.getLogin(userCode);
                 if(student!=null&&userPassword.equals(student.getPassword())){//查有此人，可以登录
@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else if(kind==2){
+        }else if(kind==1){
             try {
                 teacher = teacherService.getLogin(userCode);
                 if(teacher!=null&&userPassword.equals(teacher.getPassword())){//查有此人，可以登录
