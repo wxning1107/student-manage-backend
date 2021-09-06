@@ -1,24 +1,24 @@
 package com.pojo;
 
 public class course {
-    private String classId;
-    private String className;
+    private String id;
+    private String name;
     private String teacherId;
 
-    public String getClassId() {
-        return classId;
+    public String getId() {
+        return id;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getClassName() {
-        return className;
+    public String getName() {
+        return name;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTeacherId() {

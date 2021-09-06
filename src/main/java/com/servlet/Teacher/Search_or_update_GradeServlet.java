@@ -1,5 +1,7 @@
 package com.servlet.Teacher;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.pojo.grade;
 import com.pojo.student;
 import com.pojo.teacher;
@@ -17,7 +19,6 @@ import java.util.List;
 public class Search_or_update_GradeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
         teacher teacher= (teacher) req.getSession().getAttribute("userSession");
         String teacherId = teacher.getTeacherId();
 
@@ -32,10 +33,10 @@ public class Search_or_update_GradeServlet extends HttpServlet {
             String courseId = req.getParameter("coursetId");
             try {
                 List<grade> goodsList =teacherService.search(teacherId,courseId);
-                req.setAttribute("goodsList", goodsList);
-                //request必须要用转发，用重定向会消失
-                req.getRequestDispatcher("women_goodslist.jsp").forward(req, resp);//老师页面里有的成绩
-                //req.getRequestDispatcher("test.jsp").forward(req,resp);
+
+                // 响应返回课程
+                resp.getWriter().write(JSON.parseArray(JSONObject.toJSONString(goodsList)).toJSONString());
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

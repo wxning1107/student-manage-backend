@@ -64,4 +64,21 @@ public class StudentDaoImpl implements StudentDao {
         }
         return student;
     }
+
+    @Override
+    public List<String> getAllClasses(Connection connection) throws SQLException {
+        PreparedStatement pstm = null;
+        ResultSet rs= null;
+        List<String> classList = new ArrayList<String>();
+        if(connection != null){
+            String sql="select distinct `Class1` from student";
+            Object[] params = {};
+            rs= BaseDao.execute(connection,pstm,rs,sql,params);
+            while(rs.next()) {
+                classList.add(rs.getString("Class1"));
+            }
+            BaseDao.closeResource(null,pstm,rs);
+        }
+        return classList;
+    }
 }

@@ -61,6 +61,24 @@
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>SearchClassesServlet</servlet-name>
+    <servlet-class>com.servlet.Student.getStudentClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchClassesServlet</servlet-name>
+    <url-pattern>/classes</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SearchCourseServlet</servlet-name>
+    <servlet-class>com.servlet.Course.SearchCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchCourseServlet</servlet-name>
+    <url-pattern>/courses</url-pattern>
+  </servlet-mapping>
+
 
 
   <servlet>
