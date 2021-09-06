@@ -36,15 +36,16 @@ public class LoginServlet extends HttpServlet {
         TeacherService teacherService = new TeacherServiceImpl();
         teacher teacher;
 
-        Integer kind = Integer.valueOf(req.getParameter("level"));
-        System.out.println(kind);
-        if(kind==0) {
+        Integer level = Integer.valueOf(req.getParameter("level"));
+        System.out.println(level);
+        if(level==0) {
             try {
                 admin = adminService.getLogin(userCode);//这里已经把登录的人给查出来了
                 if(admin!=null&&userPassword.equals(admin.getPassword())){//查有此人，可以登录
                     //将用户的信息放到session中
                     req.getSession().setAttribute(Constants.USER_SESSION,admin);
                     // 返回响应
+                    admin.setLevel(level);
                     String adminStr = JSON.toJSONString(admin);
                     resp.getWriter().write(adminStr);
                 }else {
@@ -56,13 +57,14 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        else if(kind==2){
+        else if(level==2){
             try {
                 student = studentService.getLogin(userCode);
                 if(student!=null&&userPassword.equals(student.getPassword())){//查有此人，可以登录
                     //将用户的信息放到session中
                     req.getSession().setAttribute(Constants.USER_SESSION,student);
                     // 返回响应
+                    student.setLevel(level);
                     String studentStr = JSON.toJSONString(student);
                     resp.getWriter().write(studentStr);
                 }else {
@@ -73,13 +75,14 @@ public class LoginServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else if(kind==1){
+        }else if(level==1){
             try {
                 teacher = teacherService.getLogin(userCode);
                 if(teacher!=null&&userPassword.equals(teacher.getPassword())){//查有此人，可以登录
                     //将用户的信息放到session中
                     req.getSession().setAttribute(Constants.USER_SESSION,teacher);
                     // 返回响应
+                    teacher.setLevel(level);
                     String teacherStr = JSON.toJSONString(teacher);
                     resp.getWriter().write(teacherStr);
                 }else {

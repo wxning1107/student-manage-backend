@@ -6,6 +6,8 @@ public class teacher {
     private String teacherSex;
     private String major;
     private String password;
+    private Integer level;
+
     public String getTeacherId() {
         return teacherId;
     }
@@ -46,7 +48,11 @@ public class teacher {
         this.password = password;
     }
 
+    public Integer getLevel() {
+        return this.level;
+    }
 
-
-
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 }

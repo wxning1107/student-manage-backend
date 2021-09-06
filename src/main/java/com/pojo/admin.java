@@ -4,6 +4,7 @@ public class admin {
     private String adminCode;//管理员账号
     private String password;//管理员密码
     private String name;//管理员名字
+    private Integer level; // 身份
 
     public String getAdminCode() {
         return adminCode;
@@ -27,5 +28,13 @@ public class admin {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getLevel() {
+        return this.level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

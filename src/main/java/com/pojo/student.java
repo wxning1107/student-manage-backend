@@ -7,6 +7,7 @@ public class student {
     private String major;//专业
     private String Class1;//班级
     private String password;//密码
+    private Integer level; // 身份
 
     public String getPassword() {
         return password;
@@ -53,6 +54,14 @@ public class student {
 
     public void setClass(String aClass) {
         Class1 = aClass;
+    }
+
+    public Integer getLevel() {
+        return this.level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }
 
