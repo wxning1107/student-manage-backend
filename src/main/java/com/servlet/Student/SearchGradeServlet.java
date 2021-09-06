@@ -1,5 +1,7 @@
 package com.servlet.Student;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.pojo.grade;
 import com.pojo.student;
 import com.service.Student.StudentService;
@@ -16,16 +18,14 @@ public class SearchGradeServlet extends HttpServlet {
     //查询成绩
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
         //从登录的那一刻用户的账号就被记录在session里了
         student student = (student) req.getSession().getAttribute("userSession");
         String studentId = student.getStudentId();
         StudentService studentService = new StudentServiceImpl();
         List<grade> goodsList = studentService.search(studentId);
-        req.setAttribute("goodsList", goodsList);
-        //request必须要用转发，用重定向会消失
-        req.getRequestDispatcher("women_goodslist.jsp").forward(req, resp);//学生页面里有的成绩
-        //req.getRequestDispatcher("test.jsp").forward(req,resp);
+
+        // 响应返回学生成绩
+        resp.getWriter().write(JSON.parseArray(JSONObject.toJSONString(goodsList)).toJSONString());
     }
 
     @Override

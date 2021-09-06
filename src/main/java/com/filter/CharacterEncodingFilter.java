@@ -22,20 +22,11 @@ public  class CharacterEncodingFilter implements Filter {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
 
-        HttpServletRequest req = (HttpServletRequest)request;
-        Enumeration e = req.getHeaderNames();
-        System.out.println(">>>>>>>>>>>>>>>本次请求的header信息如下：");
-        while(e.hasMoreElements()){
-            String name = (String) e.nextElement();
-            String value = req.getHeader(name);
-            System.out.println(name+"="+value);
-        }
-        System.out.println(">>>>>>>>>>>>>>>本次请求的header信息结束");
         HttpServletResponse resp = (HttpServletResponse) response;
         resp.addHeader("Access-Control-Allow-Origin", "http://localhost:8081");
         resp.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         resp.addHeader("Access-Control-Allow-Credentials","true");
-        resp.addHeader("Access-Control-Allow-Headers", "x-requested-with,Content-Type");
+        resp.addHeader("Access-Control-Allow-Headers", "x-requested-with,Content-Type,authorization");
         resp.addHeader("Access-Control-Max-Age", "1800");//30 min
 
         chain.doFilter(request, response);
