@@ -79,6 +79,15 @@
     <url-pattern>/courses</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>SearchMajorServlet</servlet-name>
+    <servlet-class>com.servlet.Student.getStudentMajorsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchMajorServlet</servlet-name>
+    <url-pattern>/majors</url-pattern>
+  </servlet-mapping>
+
 
 
   <servlet>

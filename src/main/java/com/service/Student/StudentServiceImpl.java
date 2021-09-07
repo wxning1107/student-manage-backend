@@ -58,6 +58,21 @@ public class StudentServiceImpl implements StudentService{
         return classes;
     }
 
+    @Override
+    public List<String> getAllMajors() {
+        Connection connection=null;
+        List<String> classes = null;
+        try {
+            classes = studentDao.getAllMajors(BaseDao.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResource(connection, null, null);
+        }
+
+        return classes;
+    }
+
 
     @Test
     public void test()throws SQLException{

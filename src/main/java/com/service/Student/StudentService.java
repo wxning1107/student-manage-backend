@@ -11,4 +11,5 @@ public interface StudentService {
     public List<grade> search(String studentId);
     public student getLogin(String studentId)throws SQLException;
     public List<String> getAllClasses();
+    public List<String> getAllMajors();
 }

@@ -81,4 +81,21 @@ public class StudentDaoImpl implements StudentDao {
         }
         return classList;
     }
+
+    @Override
+    public List<String> getAllMajors(Connection connection) throws SQLException {
+        PreparedStatement pstm = null;
+        ResultSet rs= null;
+        List<String> classList = new ArrayList<String>();
+        if(connection != null){
+            String sql="select distinct `major` from student";
+            Object[] params = {};
+            rs= BaseDao.execute(connection,pstm,rs,sql,params);
+            while(rs.next()) {
+                classList.add(rs.getString("major"));
+            }
+            BaseDao.closeResource(null,pstm,rs);
+        }
+        return classList;
+    }
 }

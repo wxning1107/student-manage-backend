@@ -46,10 +46,8 @@ public class Search_or_update_GradeServlet extends HttpServlet {
             String major = req.getParameter("major");
             try {
                 List<grade> goodsList =teacherService.search(teacherId,courseId,major);
-                req.setAttribute("goodsList", goodsList);
-                //request必须要用转发，用重定向会消失
-                req.getRequestDispatcher("women_goodslist.jsp").forward(req, resp);//老师页面里有的成绩
-                //req.getRequestDispatcher("test.jsp").forward(req,resp);
+                // 响应返回课程
+                resp.getWriter().write(JSON.parseArray(JSONObject.toJSONString(goodsList)).toJSONString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -59,10 +57,8 @@ public class Search_or_update_GradeServlet extends HttpServlet {
             String Class1 = req.getParameter("Class1");
             try {
                 List<grade> goodsList =teacherService.search(teacherId,courseId,major,Class1);
-                req.setAttribute("goodsList", goodsList);
-                //request必须要用转发，用重定向会消失
-                req.getRequestDispatcher("women_goodslist.jsp").forward(req, resp);//老师页面里有的成绩
-                //req.getRequestDispatcher("test.jsp").forward(req,resp);
+                // 响应返回课程
+                resp.getWriter().write(JSON.parseArray(JSONObject.toJSONString(goodsList)).toJSONString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
