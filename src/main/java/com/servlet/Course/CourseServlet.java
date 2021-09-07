@@ -72,10 +72,7 @@ public class CourseServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String readerStr = getBodyParams(req);
-
-        JSONObject jsonObject = JSONObject.parseObject(readerStr);
-        String courseId = jsonObject.getString("courseId");
+        String courseId = req.getParameter("courseId");
         if(courseId.equals("")) {
             resp.getWriter().write(400);
             return;
@@ -84,7 +81,7 @@ public class CourseServlet extends HttpServlet {
         CourseService courseService = new CourseServiceImpl();
         int addInfo=courseService.delete(courseId);
         if(addInfo == 0){
-            resp.setStatus(400);
+            resp.setStatus(404);
         } else {
             resp.getWriter().write(addInfo);
         }
