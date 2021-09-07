@@ -13,9 +13,7 @@ public class AddMemberServlet extends HttpServlet {
     //主要是查询出管理员可以查看到的老师和学生
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        String userCode = req.getParameter("userCode");//前端登录的时候管理员的id
-        Integer kind = Integer.valueOf(req.getParameter("kind"));
+        int kind = Integer.parseInt(req.getParameter("kind"));
 
         AdminService adminService = new AdminServiceImpl();
         if(kind==0){//添加学生
@@ -27,10 +25,10 @@ public class AddMemberServlet extends HttpServlet {
             String Class1=req.getParameter("Class1");
             int addInfo = adminService.addstudent(studentId,studentName,studentSex,major,Class1,password);
             if(addInfo!=1){
-                req.setAttribute("msg","添加失败");
-                req.getRequestDispatcher("/home.jsp").forward(req,resp);//回到管理员页面
+                resp.setStatus(404);
             }else {
-                resp.sendRedirect("login1.jsp");//跳转到添加成功页面或者如果你想回到管理员页面
+                // 返回值简单处理
+                resp.getWriter().write(addInfo);
             }
         }else if(kind==1){//添加老师
             String teacherId = req.getParameter("teacherId");
@@ -40,26 +38,22 @@ public class AddMemberServlet extends HttpServlet {
             String major= req.getParameter("major");
             int addInfo = adminService.addteacher(teacherId,teacherName,teacherSex,major,password);
             if(addInfo!=1){
-                req.setAttribute("msg","添加失败");
-                req.getRequestDispatcher("/home.jsp").forward(req,resp);//回到管理员页面
+                resp.setStatus(404);
             }else {
-                resp.sendRedirect("login1.jsp");//跳转到添加成功页面或者如果你想回到管理员页面
-            }
-        }else if(kind==2){//添加课程
-            String courseId = req.getParameter("courseId");
-            String courseName = req.getParameter("courseName");
-            String teacherId =req.getParameter("teacherId");
-            int addInfo=adminService.addcourse(courseId,courseName,teacherId);
-            if(addInfo!=1){
-                req.setAttribute("msg","添加失败");
-                req.getRequestDispatcher("/home.jsp").forward(req,resp);//回到管理员页面
-            }else {
-                resp.sendRedirect("login1.jsp");//跳转到添加成功页面或者如果你想回到管理员页面
+                resp.getWriter().write(addInfo);
             }
         }
-
-
-
+//        else if(kind==2){//添加课程
+//            String courseId = req.getParameter("courseId");
+//            String courseName = req.getParameter("courseName");
+//            String teacherId =req.getParameter("teacherId");
+//            int addInfo=adminService.addcourse(courseId,courseName,teacherId);
+//            if(addInfo!=1){
+//                resp.setStatus(404);
+//            } else {
+//                resp.getWriter().write(addInfo);
+//            }
+//        }
     }
 
     @Override

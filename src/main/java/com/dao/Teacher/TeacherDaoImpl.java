@@ -5,7 +5,6 @@ import com.pojo.grade;
 import com.pojo.student;
 import com.pojo.teacher;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -137,5 +136,31 @@ public class TeacherDaoImpl implements TeacherDao {
             BaseDao.closeResource(null,pstm,rs);
         }
         return GradeList;
+    }
+
+    @Override
+    public List<teacher> search(Connection connection) throws SQLException {
+        PreparedStatement pstm = null;
+        ResultSet rs= null;
+        List<teacher> teachers = new ArrayList<>();
+        teacher teacher;
+
+        if(connection != null){
+            String sql="select * from teacher";
+            Object[] params = {};
+            rs= BaseDao.execute(connection,pstm,rs,sql,params);
+            while(rs.next()) {
+                teacher = new teacher();
+                teacher.setTeacherId(rs.getString("teacherId"));
+                teacher.setTeacherName(rs.getString("teacherName"));
+                teacher.setTeacherSex(rs.getString("teacherSex"));
+                teacher.setMajor(rs.getString("major"));
+                teacher.setPassword(rs.getString("password"));
+
+                teachers.add(teacher);
+            }
+            BaseDao.closeResource(null,pstm,rs);
+        }
+        return teachers;
     }
 }

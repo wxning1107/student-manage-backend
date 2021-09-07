@@ -15,7 +15,6 @@ public class DeleteMemberServlet extends HttpServlet {
     //删除用的
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
         AdminService adminService=new AdminServiceImpl();
         int result=0;
         Integer kind = Integer.valueOf(req.getParameter("kind"));
@@ -24,10 +23,9 @@ public class DeleteMemberServlet extends HttpServlet {
                 String studentId = req.getParameter("studentId");
                 result = adminService.deleteStudent(studentId);
                 if(result==0){
-                    req.setAttribute("msg","删除失败");
-                    req.getRequestDispatcher("/shop_list.jsp").forward(req,resp);//回到管理员页面
+                    resp.setStatus(400);
                 }else {
-                    resp.sendRedirect("home.jsp");//回到管理员页面或者你想的页面
+                    resp.getWriter().write(result);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -37,28 +35,27 @@ public class DeleteMemberServlet extends HttpServlet {
             try {
                 result = adminService.deleteTeacher(teacherId);
                 if(result==0){
-                    req.setAttribute("msg","删除失败");
-                    req.getRequestDispatcher("/shop_list.jsp").forward(req,resp);//回到管理员页面
+                    resp.setStatus(400);
                 }else {
-                    resp.sendRedirect("home.jsp");//回到管理员页面或者你想的页面
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else if(kind==2){//删除课程
-            String courseId = req.getParameter("courseId");
-            try {
-                result = adminService.deleteTeacher(courseId);
-                if(result==0){
-                    req.setAttribute("msg","删除失败");
-                    req.getRequestDispatcher("/shop_list.jsp").forward(req,resp);//回到管理员页面
-                }else {
-                    resp.sendRedirect("home.jsp");//回到管理员页面或者你想的页面
+                    resp.getWriter().write(result);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+//        else if(kind==2){//删除课程
+//            String courseId = req.getParameter("courseId");
+//            try {
+//                result = adminService.deleteCourse(courseId);
+//                if(result==0){
+//                    resp.setStatus(400);
+//                }else {
+//                    resp.getWriter().write(result);
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
     }
 

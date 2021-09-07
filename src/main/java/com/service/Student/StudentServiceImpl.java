@@ -5,8 +5,6 @@ import com.dao.Student.StudentDao;
 import com.dao.Student.StudentDaoImpl;
 import com.pojo.grade;
 import com.pojo.student;
-import com.service.Teacher.TeacherServiceImpl;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -71,6 +69,21 @@ public class StudentServiceImpl implements StudentService{
         }
 
         return classes;
+    }
+
+    @Override
+    public List<student> search() {
+        Connection connection=null;
+        List<student> students = null;
+        try {
+            students = studentDao.search(BaseDao.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResource(connection, null, null);
+        }
+
+        return students;
     }
 
 

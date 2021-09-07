@@ -11,16 +11,18 @@ import java.util.List;
 
 public interface TeacherDao {
     //老师登录自己账号查询密码到servlet比对
-    public teacher getLogin(Connection connection, String teacherId)throws SQLException;
+    public teacher getLogin(Connection connection, String teacherId) throws SQLException;
 
-    public int update(Connection connection,String teacherId,String studentId,String courseId,int grade)throws SQLException;
+    public int update(Connection connection, String teacherId, String studentId, String courseId, int grade) throws SQLException;
 
     //按课程查
-    public List<grade> search(Connection connection, String teacherId, String courseId)throws SQLException;
+    public List<grade> search(Connection connection, String teacherId, String courseId) throws SQLException;
 
     //按课程和专业查
-    public List<grade> search(Connection connection,String teacherId,String courseId,String major)throws SQLException;
+    public List<grade> search(Connection connection, String teacherId, String courseId, String major) throws SQLException;
 
     //按课程和专业和班级查
-    public List<grade> search(Connection connection,String teacherId,String courseId,String major, String Class1)throws SQLException;
+    public List<grade> search(Connection connection, String teacherId, String courseId, String major, String Class1) throws SQLException;
+
+    public List<teacher> search(Connection connection) throws SQLException;
 }

@@ -91,6 +91,21 @@ public class TeacherServiceImpl implements TeacherService{
         return GradeList;
     }
 
+    @Override
+    public List<teacher> search() {
+        Connection connection=null;
+        List<teacher> teachers = null;
+        try {
+            teachers = teacherDao.search(BaseDao.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResource(connection, null, null);
+        }
+
+        return teachers;
+    }
+
 
     @Test
     public void test()throws SQLException{

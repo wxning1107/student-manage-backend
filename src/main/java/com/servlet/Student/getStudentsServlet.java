@@ -2,8 +2,6 @@ package com.servlet.Student;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.pojo.grade;
-import com.pojo.student;
 import com.service.Student.StudentService;
 import com.service.Student.StudentServiceImpl;
 
@@ -12,16 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-public class getStudentClassServlet extends HttpServlet {
+public class getStudentsServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         StudentService studentService = new StudentServiceImpl();
 
-        // 响应返回所有班级
-        resp.getWriter().write(JSON.parseArray(JSONObject.toJSONString(studentService.getAllClasses())).toJSONString());
+        // 响应返回所有学生，未分页
+        resp.getWriter().write(JSON.parseArray(JSONObject.toJSONString(studentService.search())).toJSONString());
     }
 
     @Override

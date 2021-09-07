@@ -69,7 +69,7 @@ public class StudentDaoImpl implements StudentDao {
     public List<String> getAllClasses(Connection connection) throws SQLException {
         PreparedStatement pstm = null;
         ResultSet rs= null;
-        List<String> classList = new ArrayList<String>();
+        List<String> classList = new ArrayList<>();
         if(connection != null){
             String sql="select distinct `Class1` from student";
             Object[] params = {};
@@ -86,7 +86,7 @@ public class StudentDaoImpl implements StudentDao {
     public List<String> getAllMajors(Connection connection) throws SQLException {
         PreparedStatement pstm = null;
         ResultSet rs= null;
-        List<String> classList = new ArrayList<String>();
+        List<String> classList = new ArrayList<>();
         if(connection != null){
             String sql="select distinct `major` from student";
             Object[] params = {};
@@ -97,5 +97,32 @@ public class StudentDaoImpl implements StudentDao {
             BaseDao.closeResource(null,pstm,rs);
         }
         return classList;
+    }
+
+    @Override
+    public List<student> search(Connection connection) throws SQLException {
+        PreparedStatement pstm = null;
+        ResultSet rs= null;
+        List<student> students = new ArrayList<>();
+        student student;
+
+        if(connection != null){
+            String sql="select * from student";
+            Object[] params = {};
+            rs= BaseDao.execute(connection,pstm,rs,sql,params);
+            while(rs.next()) {
+                student = new student();
+                student.setStudentId(rs.getString("studentId"));
+                student.setStudentName(rs.getString("studentName"));
+                student.setStudentSex(rs.getString("studentSex"));
+                student.setMajor(rs.getString("major"));
+                student.setClass(rs.getString("Class1"));
+                student.setPassword(rs.getString("password"));
+
+                students.add(student);
+            }
+            BaseDao.closeResource(null,pstm,rs);
+        }
+        return students;
     }
 }

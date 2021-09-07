@@ -20,4 +20,7 @@ public interface TeacherService {
 
     //按课程和专业和班级查
     public List<grade> search(String teacherId,String courseId,String major, String Class1)throws SQLException;
+
+    // 查询所有教师
+    public List<teacher> search();
 }

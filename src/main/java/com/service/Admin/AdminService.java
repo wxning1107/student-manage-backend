@@ -1,9 +1,11 @@
 package com.service.Admin;
 
 import com.pojo.admin;
+import com.pojo.teacher;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface AdminService {
     //管理员登录时的验证
@@ -18,5 +20,6 @@ public interface AdminService {
     public int deleteTeacher(String teacherId)throws SQLException;
     public int deleteCourse(String courseId)throws SQLException;
 
-
+    // 查询所有管理员
+    public List<admin> search();
 }

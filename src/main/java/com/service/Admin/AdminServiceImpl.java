@@ -5,10 +5,12 @@ import com.dao.Admin.AdmindaoImpl;
 import com.dao.BaseDao;
 import com.pojo.admin;
 import com.pojo.student;
+import com.pojo.teacher;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AdminServiceImpl implements AdminService{
 
@@ -132,6 +134,21 @@ public class AdminServiceImpl implements AdminService{
             return result;
         }
         return 0;
+    }
+
+    @Override
+    public List<admin> search() {
+        Connection connection=null;
+        List<admin> admins = null;
+        try {
+            admins = admindao.search(BaseDao.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResource(connection, null, null);
+        }
+
+        return admins;
     }
 
     @Test

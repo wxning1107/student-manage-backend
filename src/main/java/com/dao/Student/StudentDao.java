@@ -20,4 +20,6 @@ public interface StudentDao {
     // 获取所有专业，由于数据库没有设计班级表，所以只有放到学生dao。学生表数据量较小，可以用该方法。
     public List<String> getAllMajors(Connection connection) throws SQLException;
 
+    // 获取所有学生，未分页
+    public List<student> search(Connection connection) throws SQLException;
 }

@@ -1,9 +1,11 @@
 package com.dao.Admin;
 
 import com.pojo.admin;
+import com.pojo.student;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface Admindao {
     //管理员登录时的验证
@@ -16,4 +18,7 @@ public interface Admindao {
     public int deleteStudent(Connection connection,String studentId)throws SQLException;
     public int deleteTeacher(Connection connection,String teacherId)throws SQLException;
     public int deleteCourse(Connection connection,String courseId)throws SQLException;
+
+    // 获取所有管理员，未分页
+    public List<admin> search(Connection connection) throws SQLException;
 }

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdmindaoImpl implements Admindao{
 
@@ -132,5 +134,29 @@ public class AdmindaoImpl implements Admindao{
             return execute;
         }
         return 0;
+    }
+
+    @Override
+    public List<admin> search(Connection connection) throws SQLException {
+        PreparedStatement pstm = null;
+        ResultSet rs= null;
+        List<admin> admins = new ArrayList<>();
+        admin admin;
+
+        if(connection != null){
+            String sql="select * from admin";
+            Object[] params = {};
+            rs= BaseDao.execute(connection,pstm,rs,sql,params);
+            while(rs.next()) {
+                admin = new admin();
+                admin.setAdminCode(rs.getString("adminCode"));
+                admin.setPassword(rs.getString("password"));
+                admin.setName(rs.getString("name"));
+
+                admins.add(admin);
+            }
+            BaseDao.closeResource(null,pstm,rs);
+        }
+        return admins;
     }
 }
